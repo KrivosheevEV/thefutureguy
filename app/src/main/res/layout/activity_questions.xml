@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.kev163rus.thefutureguy.QuestionsActivity"
+    android:background="@drawable/background1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewCountOfQuestions"
+                android:layout_weight="30"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:gravity="left|center_vertical"
+                android:padding="5dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/textViewQuestionFinish"
+                android:id="@+id/textViewQuestionFinish"
+                android:layout_weight="70"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:gravity="center_vertical|right"
+                android:padding="5dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="New Text"
+            android:id="@+id/textViewQuestionText"
+            android:layout_weight="35"
+            android:textSize="30sp"
+            android:padding="5dp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Medium Text"
+            android:id="@+id/textViewQuestionAnswer1"
+            android:layout_weight="12"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:gravity="left|center_vertical"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Medium Text"
+            android:id="@+id/textViewQuestionAnswer2"
+            android:layout_weight="12"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:gravity="left|center_vertical"
+            android:padding="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Medium Text"
+            android:id="@+id/textViewQuestionAnswer3"
+            android:layout_weight="12"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:gravity="left|center_vertical"
+            android:padding="5dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/textViewQuestionBack"
+                android:id="@+id/textViewQuestionBack"
+                android:layout_weight="30"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:gravity="left|center_vertical"
+                android:padding="5dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageViewTwoHearts"
+                android:layout_weight="30"
+                android:src="@drawable/twoheart1"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/imageViewDescription" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/textViewQuestionSkip"
+                android:id="@+id/textViewQuestionSkip"
+                android:layout_weight="30"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:gravity="center_vertical|right"
+                android:padding="5dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

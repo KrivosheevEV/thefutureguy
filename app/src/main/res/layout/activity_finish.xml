@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.kev163rus.thefutureguy.FinishActivity"
+    android:background="@drawable/background1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="New Text"
+            android:id="@+id/textViewResult"
+            android:layout_weight="30"
+            android:textSize="40sp"
+            android:padding="5dp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="New Text"
+            android:id="@+id/textViewResultText"
+            android:layout_weight="35"
+            android:textSize="30sp"
+            android:padding="5dp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/textViewAgain"
+            android:id="@+id/textViewAgain"
+            android:layout_weight="10"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@android:color/white"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/butExit"
+            android:id="@+id/textViewExit"
+            android:layout_weight="10"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@android:color/white"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</RelativeLayout>
