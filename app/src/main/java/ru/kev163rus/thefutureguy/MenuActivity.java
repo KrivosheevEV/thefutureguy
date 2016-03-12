@@ -97,14 +97,6 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
 
         resetData();
 
-//        String appKey = "bd5a7ccfadf5f9dc5e5a006de22ef5e0203a5749780f83e5";
-//        Appodeal.disableLocationPermissionCheck();
-////        Appodeal.setAutoCache(Appodeal.NON_SKIPPABLE_VIDEO|Appodeal.BANNER, false);
-//        Appodeal.initialize(this, appKey, Appodeal.NON_SKIPPABLE_VIDEO);
-//        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL);
-//        Appodeal.initialize(this, appKey, Appodeal.BANNER);
-////        Appodeal.cache(this, Appodeal.NON_SKIPPABLE_VIDEO|Appodeal.BANNER);
-//        Appodeal.setTesting(true);
     }
 
     @Override
@@ -112,9 +104,6 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
 
         switch(v.getId()) {
             case R.id.textViewStartFastTest:
-//                FragmentManager manager = getSupportFragmentManager();
-//                MyDialogFragment myDialogFragment = new MyDialogFragment();
-//                myDialogFragment.show(manager, "dialog");
                 setData("Fast");
                 startActivity(activityBeforeTest);
                 finish();

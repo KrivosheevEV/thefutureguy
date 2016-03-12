@@ -13,8 +13,8 @@ android {
         applicationId 'ru.kev163rus.thefutureguy'
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 10001
-        versionName '1.0.1'
+        versionCode 10002
+        versionName '1.0.2'
         multiDexEnabled true
     }
     buildTypes {

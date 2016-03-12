@@ -51,51 +51,53 @@ public class AfterTestActivity extends Activity implements View.OnClickListener 
 
         switch(v.getId()) {
             case R.id.textViewDialogAfterTestYes:
-//                if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
-//                    finish();
-//                    Appodeal.show(AfterTestActivity.this, Appodeal.NON_SKIPPABLE_VIDEO);
-//                }else if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-//                    finish();
-//                    Appodeal.show(AfterTestActivity.this, Appodeal.INTERSTITIAL);
-//                }else{
+                if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
+                    Appodeal.show(AfterTestActivity.this, Appodeal.NON_SKIPPABLE_VIDEO);
+                }else if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+                    Appodeal.show(AfterTestActivity.this, Appodeal.INTERSTITIAL);
+                }else{
                     finish();
                     startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
-//                }
+                }
                 break;
             case R.id.textViewDialogAfterTestNo:
-                startActivity(new Intent(this,  MenuActivity.class));
                 finish();
+                startActivity(new Intent(this,  MenuActivity.class));
                 break;
         }
 
-        /*Appodeal.setNonSkippableVideoCallbacks(new NonSkippableVideoCallbacks() {
+        Appodeal.setNonSkippableVideoCallbacks(new NonSkippableVideoCallbacks() {
             private Toast mToast;
 
             @Override
             public void onNonSkippableVideoLoaded() {
-//                showToast("onInterstitialLoaded");
+                if (Questions.isDebuging) showToast("onNonSkippableLoaded");
             }
 
             @Override
             public void onNonSkippableVideoFailedToLoad() {
-//                showToast("onInterstitialFailedToLoad");
-                startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
+                if (Questions.isDebuging) showToast("onNonSkippableFailedToLoad");
+//                finish();
+//                startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
             }
 
             @Override
             public void onNonSkippableVideoShown() {
-//                showToast("onInterstitialShown");
+                if (Questions.isDebuging) showToast("onNonSkippableShown");
+//                finish();
+//                startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
             }
 
             @Override
             public void onNonSkippableVideoFinished() {
-//                showToast("onInterstitialClicked");
-                //startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
+                if (Questions.isDebuging) showToast("onNonSkippableClicked");
+
             }
 
             @Override
             public void onNonSkippableVideoClosed() {
-//                showToast("onInterstitialClosed");
+                if (Questions.isDebuging) showToast("onNonSkippableClosed");
+                finish();
                 startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
             }
 
@@ -114,29 +116,32 @@ public class AfterTestActivity extends Activity implements View.OnClickListener 
 
             @Override
             public void onInterstitialLoaded(boolean isPrecache)  {
-//                showToast("onInterstitialLoaded");
+                if (Questions.isDebuging) showToast("onInterstitialLoaded");
             }
 
             @Override
             public void onInterstitialFailedToLoad() {
-//                showToast("onInterstitialFailedToLoad");
-                startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
+                if (Questions.isDebuging) showToast("onInterstitialFailedToLoad");
+
             }
 
             @Override
             public void onInterstitialShown() {
-//                showToast("onInterstitialShown");
+                if (Questions.isDebuging) showToast("onInterstitialShown");
+//                finish();
+//                startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
             }
 
             @Override
             public void onInterstitialClicked() {
-//                showToast("onInterstitialClicked");
+                if (Questions.isDebuging) showToast("onInterstitialClicked");
                 //startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
             }
 
             @Override
             public void onInterstitialClosed() {
-//                showToast("onInterstitialClosed");
+                if (Questions.isDebuging) showToast("onInterstitialClosed");
+                finish();
                 startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
             }
 
@@ -148,7 +153,7 @@ public class AfterTestActivity extends Activity implements View.OnClickListener 
                 mToast.setDuration(Toast.LENGTH_SHORT);
                 mToast.show();
             }
-        });*/
+        });
 
     }
 }

@@ -10,14 +10,19 @@ import android.graphics.Typeface;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
 
 import com.appodeal.ads.Appodeal;
 import com.google.android.gms.common.internal.GetServiceRequest;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 
 import ru.kev163rus.thefutureguy.R;
@@ -26,7 +31,9 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
     private TextView textViewQuestionCountOfQuestions, textViewQuestionFinish, textViewQuestionText, textViewQuestionAnswer1, textViewQuestionAnswer2, textViewQuestionAnswer3,
             textViewQuestionBack, textViewQuestionSkip;
-    private Boolean adBannerIsShowed;
+    boolean bannerAppodealIsShowed;
+    Handler h;
+    int[] arrayOfDialogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +86,54 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
         setQuestionAndAnswers(Questions.indexOfQuestion);
 
-//        adBannerIsShowed = false;
-//        if (Appodeal.isLoaded(Appodeal.BANNER) & !adBannerIsShowed) {
-//            Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-//            adBannerIsShowed = true;
-//        }
+        arrayOfDialogs = new int[10];
+        fillArrayOfDialogs(arrayOfDialogs);
+
+        Questions.isDebuging = false;    // set "false" in release.
+
+        // Реклама.
+        Appodeal.disableLocationPermissionCheck();
+        Appodeal.setTesting(Questions.isDebuging);
+
+        h = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+
+                String appKey = "a3e070f65cf3e387ed1234a2dc0a5777fcbe0a3b940a52b6";
+                Appodeal.initialize(QuestionsActivity.this, appKey, Appodeal.NON_SKIPPABLE_VIDEO);
+                Appodeal.initialize(QuestionsActivity.this, appKey, Appodeal.INTERSTITIAL);
+                Appodeal.initialize(QuestionsActivity.this, appKey, Appodeal.BANNER);
+
+            }
+        };
+        h.sendEmptyMessage(0);
+
+        bannerAppodealIsShowed = false;
+        showBannerAppodeal(false);
+        ///
+
+    }
+
+    private void fillArrayOfDialogs(int[] givenArray) {
+
+        for (int countOfArray = 0; countOfArray < givenArray.length; countOfArray++) {
+            givenArray[countOfArray] = countOfArray;
+        }
+
+        Random rnd = new Random();
+        for (int i = givenArray.length - 1; i > 0; i--) {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            int a = givenArray[index];
+            givenArray[index] = givenArray[i];
+            givenArray[i] = a;
+        }
+    }
+
+    private void showBannerAppodeal(boolean bannerIsShowed) {
+        if (Appodeal.isLoaded(Appodeal.BANNER) & !bannerIsShowed) {
+            Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+            bannerAppodealIsShowed = true;
+        }
     }
 
     private void setQuestionAndAnswers(int indexOfQuestion){
@@ -577,6 +627,8 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
+        showBannerAppodeal(bannerAppodealIsShowed);
+
         switch(v.getId()) {
             case R.id.textViewQuestionAnswer1:
                 setNewQuestion(true, 1);
@@ -598,18 +650,11 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
                 break;
         }
 
-//        if (Appodeal.isLoaded(Appodeal.BANNER) & !adBannerIsShowed) {
-//            Appodeal.show(this, Appodeal.BANNER_BOTTOM);
-//            adBannerIsShowed = true;
-//        }
-
     }
 
-    private void setNewQuestion(boolean isIncrement, int userChoise){
+    public void setNewQuestion(boolean isIncrement, int userChoise){
 
-        Random rnd = new Random();
-
-        if (Questions.indexOfQuestion % 4 == 0) setDialog(rnd.nextInt(10));
+        if (arrayOfDialogs != null && Questions.indexOfQuestion % 4 == 0) setDialog(arrayOfDialogs[(Questions.indexOfQuestion / 4) - 1]);
 
         Questions.setUserResult(Questions.indexOfQuestion - 1, userChoise);
 
@@ -621,15 +666,35 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
             finishTest();
         }
 
-        setQuestionAndAnswers(Questions.indexOfQuestion);
+        switch (userChoise){
+            case 1:
+                textViewQuestionAnswer2.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textviewfadeout));
+                textViewQuestionAnswer3.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textviewfadeout));
+                break;
+            case 2:
+                textViewQuestionAnswer1.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textviewfadeout));
+                textViewQuestionAnswer3.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textviewfadeout));
+                break;
+            case 3:
+                textViewQuestionAnswer1.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textviewfadeout));
+                textViewQuestionAnswer2.startAnimation(AnimationUtils.loadAnimation(this, R.anim.textviewfadeout));
+                break;
+            default: break;
+        }
 
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setQuestionAndAnswers(Questions.indexOfQuestion);
+            }
+        }, 1500);
     }
 
-    public void setDialog(int indexOfQuestion) {
+    public void setDialog(int givenIndexOfDialogsArray) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
         builder.setTitle(getString(R.string.dialog1_title))
-//                .setMessage("Покормите кота!")
                 .setIcon(R.drawable.twoheart1)
                 .setCancelable(false)
                 .setNegativeButton(getString(R.string.dialog1_buttonPositive),
@@ -641,7 +706,7 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
         AlertDialog alert = builder.create();
 
 
-        switch (indexOfQuestion){
+        switch (givenIndexOfDialogsArray){
             case 1: alert.setMessage(getString(R.string.dialog1_text)); break;
             case 2: alert.setMessage(getString(R.string.dialog2_text)); break;
             case 3: alert.setMessage(getString(R.string.dialog3_text)); break;
@@ -663,42 +728,6 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
         finish();
         startActivity(new Intent(this, AfterTestActivity.class));
-    }
-
-
-    public static class MyDialogFragment extends DialogFragment {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            String title = "Выбор есть всегда";
-            String message = "Выбери пищу";
-            String button1String = "Вкусная пища";
-            String button2String = "Здоровая пища";
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(title);  // заголовок
-            builder.setMessage(message); // сообщение
-            builder.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-//                Toast.makeText(getActivity(), "Вы сделали правильный выбор",
-//                        Toast.LENGTH_LONG).show();
-                }
-            });
-//        builder.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int id) {
-//                Toast.makeText(getActivity(), "Возможно вы правы", Toast.LENGTH_LONG)
-//                        .show();
-//            }
-//        });
-//        builder.setCancelable(true);
-
-            return builder.create();
-        }
-
-
     }
 
 }
