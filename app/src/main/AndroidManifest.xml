@@ -38,6 +38,7 @@
             android:screenOrientation="portrait"/>
 
 
+
         <meta-data android:name="com.appodeal.framework" android:value="android" />
         <receiver android:name="com.appodeal.ads.AppodealPackageAddedReceiver" android:exported="true" android:enabled="true">
             <intent-filter>
