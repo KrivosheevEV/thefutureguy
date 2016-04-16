@@ -3,10 +3,16 @@ package ru.kev163rus.thefutureguy;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.LogRecord;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -33,7 +39,15 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
     static Intent activityQuestion, activityMenu;
     Intent activityBeforeTest;
     Dialog dialog;
+    SoundPool mySounds;
+    int musicStartID, soundClickMenuID;
+    MediaPlayer myMusic;
+    Handler handlerOfSounds;
 
+    private int stateMediaPlayer;
+    private final int stateMP_NotStarter = 0;
+    private final int stateMP_Playing = 1;
+    private final int stateMP_Pausing = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +111,55 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
 
         resetData();
 
+        mySounds = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundClickMenuID = mySounds.load(this,R.raw.clickmenu, 1);
+        myMusic = new MediaPlayer();
+        myMusic = MediaPlayer.create(this, R.raw.start);
+        stateMediaPlayer = stateMP_NotStarter;
+
+        handlerOfSounds = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+
+                switch (msg.what) {
+                    case 1:
+                        myMusic.start();
+                    case 2:
+                        mySounds.play(soundClickMenuID, 1, 1, 1, 0, 1);
+                    default: break;
+                }
+            }
+        };
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myMusic.start();
+            }
+        }, 1500);
+
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        //mySounds.play(soundStartID, 1, 1, 1, 0, 1);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mySounds.release();
+        myMusic.stop();
+        myMusic.release();
     }
 
     @Override
@@ -123,6 +186,8 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
                 System.exit(0);
                 break;
         }
+
+        handlerOfSounds.sendEmptyMessageDelayed(2, 100);
     }
 
     @Override

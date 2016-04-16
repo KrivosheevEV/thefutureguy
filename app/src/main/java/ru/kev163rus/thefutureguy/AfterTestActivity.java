@@ -3,6 +3,8 @@ package ru.kev163rus.thefutureguy;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +20,9 @@ import com.appodeal.ads.NonSkippableVideoCallbacks;
 import ru.kev163rus.thefutureguy.R;
 
 public class AfterTestActivity extends Activity implements View.OnClickListener {
+
+    SoundPool mySounds;
+    int soundFinishID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +49,14 @@ public class AfterTestActivity extends Activity implements View.OnClickListener 
         textViewDialogAfterTestYes.setOnClickListener(this);
         textViewDialogAfterTestNo.setOnClickListener(this);
 
+        mySounds = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundFinishID = mySounds.load(this,R.raw.finish, 1);
     }
 
     @Override
     public void onClick(View v) {
+
+        mySounds.play(soundFinishID, 1, 1, 1, 0, 1);
 
         switch(v.getId()) {
             case R.id.textViewDialogAfterTestYes:

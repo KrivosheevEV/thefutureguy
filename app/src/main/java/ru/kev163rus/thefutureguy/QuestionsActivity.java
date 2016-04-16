@@ -7,6 +7,8 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -34,6 +36,8 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
     boolean bannerAppodealIsShowed;
     Handler h;
     int[] arrayOfDialogs;
+    SoundPool mySounds;
+    int soundClickItemID, soundAlertID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,10 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
         arrayOfDialogs = new int[10];
         fillArrayOfDialogs(arrayOfDialogs);
 
+        mySounds = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundClickItemID = mySounds.load(this,R.raw.clickitem, 1);
+        soundAlertID = mySounds.load(this,R.raw.alert, 1);
+
         Questions.isDebuging = false;    // set "false" in release.
 
         // Реклама.
@@ -110,6 +118,42 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
         bannerAppodealIsShowed = false;
         showBannerAppodeal(false);
         ///
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mySounds.release();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        showBannerAppodeal(bannerAppodealIsShowed);
+
+        switch(v.getId()) {
+            case R.id.textViewQuestionAnswer1:
+                setNewQuestion(true, 1);
+                break;
+            case R.id.textViewQuestionAnswer2:
+                setNewQuestion(true, 2);
+                break;
+            case R.id.textViewQuestionAnswer3:
+                setNewQuestion(true, 3);
+                break;
+            case R.id.textViewQuestionFinish:
+                finishTest();
+                break;
+            case R.id.textViewQuestionBack:
+                setNewQuestion(false, 0);
+                break;
+            case R.id.textViewQuestionSkip:
+                setNewQuestion(true, 0);
+                break;
+        }
+
+        mySounds.play(soundClickItemID, 1, 1, 1, 0, 1);
 
     }
 
@@ -624,33 +668,6 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
     }
 
-    @Override
-    public void onClick(View v) {
-
-        showBannerAppodeal(bannerAppodealIsShowed);
-
-        switch(v.getId()) {
-            case R.id.textViewQuestionAnswer1:
-                setNewQuestion(true, 1);
-                break;
-            case R.id.textViewQuestionAnswer2:
-                setNewQuestion(true, 2);
-                break;
-            case R.id.textViewQuestionAnswer3:
-                setNewQuestion(true, 3);
-                break;
-            case R.id.textViewQuestionFinish:
-                finishTest();
-                break;
-            case R.id.textViewQuestionBack:
-                setNewQuestion(false, 0);
-                break;
-            case R.id.textViewQuestionSkip:
-                setNewQuestion(true, 0);
-                break;
-        }
-
-    }
 
     public void setNewQuestion(boolean isIncrement, int userChoise){
 
@@ -701,6 +718,7 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
+                                mySounds.play(soundAlertID, 1, 1, 1, 0, 1);
                             }
                         });
         AlertDialog alert = builder.create();
