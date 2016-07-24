@@ -100,7 +100,7 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
         Questions.isDebuging = false;    // set "false" in release.
 
         // Реклама.
-        Appodeal.disableLocationPermissionCheck();
+        //Appodeal.disableLocationPermissionCheck();
         Appodeal.setTesting(Questions.isDebuging);
 
         h = new Handler() {

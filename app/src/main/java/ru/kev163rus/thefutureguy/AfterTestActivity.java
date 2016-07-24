@@ -104,11 +104,18 @@ public class AfterTestActivity extends Activity implements View.OnClickListener 
             }
 
             @Override
-            public void onNonSkippableVideoClosed() {
+            public void onNonSkippableVideoClosed(boolean b) {
                 if (Questions.isDebuging) showToast("onNonSkippableClosed");
                 finish();
                 startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
             }
+
+//            @Override
+//            public void onNonSkippableVideoClosed() {
+//                if (Questions.isDebuging) showToast("onNonSkippableClosed");
+//                finish();
+//                startActivity(new Intent(AfterTestActivity.this, FinishActivity.class));
+//            }
 
             void showToast(final String text) {
                 if (mToast == null) {
