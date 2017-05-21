@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.kev163rus.thefutureguy.AfterVotingActivity"
+    android:background="@color/color1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layoutDialog"
+        android:weightSum="100"
+        android:background="@drawable/background1"
+        android:layout_margin="30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/textViewDialogAfterTestText"
+            android:id="@+id/textViewDialogAfterVotingText"
+            android:layout_weight="65"
+            android:textSize="25sp"
+            android:padding="15dp"
+            android:textColor="@android:color/white" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="35"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="@string/textViewDialogAfterTestYes"
+                android:id="@+id/textViewDialogAfterVotingYes"
+                android:layout_weight="60"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="@string/textViewDialogAfterTestNo"
+                android:id="@+id/textViewDialogAfterVotingNo"
+                android:layout_weight="40"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

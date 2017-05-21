@@ -4,6 +4,7 @@
     <string name="butStartFastTest">Get the name quickly</string>
     <string name="butStartFullTest">Get the name exactly</string>
     <string name="butStartAnotherTest">Another test</string>
+    <string name="butStartVoting">New version 2.0!!</string>
     <string name="butExit">Exit</string>
     <string name="imageViewDescription">The future guy</string>
     <string name="textViewQuestionCountOfQuestions">of</string>
@@ -270,6 +271,28 @@
     <string name="dialog8_text">If you do not like the result - then take the test again. The result will be more accurate.</string>
     <string name="dialog9_text">Know the name together with his girlfriend - so fun!</string>
     <string name="dialog10_text">In the application special advertising. It helps to do it better.</string>
+    <string name="textViewDialogBeforeVotingText">Take part in the creation of a second improved version of the test! On the basis of the wishes of the most dedicated and active participants, we will create a second improved version! Your opinion is very important to us! Become the author of the new apps!</string>
+    <string name="textViewDialogBeforeVotingYes">Want to vote for a new app!</string>
+    <string name="votingQuestion1">The application shortcut must be changed?</string>
+    <string name="votingQuestion2">We need to change the color of the app?</string>
+    <string name="votingQuestion3">Sounds like?</string>
+    <string name="votingQuestion4">To increase boys \' names?</string>
+    <string name="votingQuestion5">To improve the accuracy of the tests?</string>
+    <string name="votingAnswer1_1">Need to change it!</string>
+    <string name="votingAnswer1_2">Leave as is.</string>
+    <string name="votingAnswer1_3">I don\'t care.</string>
+    <string name="votingAnswer2_1">Yes, the color change!</string>
+    <string name="votingAnswer2_2">Leave the same.</string>
+    <string name="votingAnswer2_3">I don\'t care.</string>
+    <string name="votingAnswer3_1">Sounds not like.</string>
+    <string name="votingAnswer3_2">Sounds good.</string>
+    <string name="votingAnswer3_3">I don\'t care.</string>
+    <string name="votingAnswer4_1">Yes, names little.</string>
+    <string name="votingAnswer4_2">Not necessary.</string>
+    <string name="votingAnswer4_3">I don\'t care.</string>
+    <string name="votingAnswer5_1">Make sure!</string>
+    <string name="votingAnswer5_2">No, all the rules.</string>
+    <string name="votingAnswer5_3">I don\'t care.</string>
 
 
 </resources>

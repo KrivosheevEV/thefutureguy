@@ -271,6 +271,29 @@
     <string name="dialog8_text">Если не понравился результат - то пройди тест ещё раз. Результат будет точнее.</string>
     <string name="dialog9_text">Узнавайте имя вместе с подружкой - так веселее!</string>
     <string name="dialog10_text">В приложении особенная реклама. Она помогает делать его лучше.</string>
+    <string name="butStartVoting">Новая версия 2.0</string>
+    <string name="textViewDialogBeforeVotingText">Прими участие в создании второй улучшенной версии теста! На основании пожеланий самых преданных и активных участниц мы создадим вторую улучшенную версию! Твоё мнение для нас очень важно! Стань автором нового приложения!</string>
+    <string name="textViewDialogBeforeVotingYes">Хочу голосовать за новое приложение!</string>
+    <string name="votingQuestion1">Ярлык приложения надо изменить?</string>
+    <string name="votingQuestion2">Нужно поменять цвет приложения?</string>
+    <string name="votingQuestion3">Звуки нравятся?</string>
+    <string name="votingQuestion4">Увеличить имена парней?</string>
+    <string name="votingQuestion5">Улучшить точность тестов?</string>
+    <string name="votingAnswer1_1">Надо менять!</string>
+    <string name="votingAnswer1_2">Оставить как есть.</string>
+    <string name="votingAnswer1_3">Мне всё равно.</string>
+    <string name="votingAnswer2_1">Да, цвет сменить!</string>
+    <string name="votingAnswer2_2">Оставить такой же.</string>
+    <string name="votingAnswer2_3">Мне всё равно.</string>
+    <string name="votingAnswer3_1">Звуки не нравятся.</string>
+    <string name="votingAnswer3_2">Звуки хорошие.</string>
+    <string name="votingAnswer3_3">Мне всё равно.</string>
+    <string name="votingAnswer4_1">Да, имён мало.</string>
+    <string name="votingAnswer4_2">Не нужно.</string>
+    <string name="votingAnswer4_3">Мне всё равно.</string>
+    <string name="votingAnswer5_1">Сделать точнее!</string>
+    <string name="votingAnswer5_2">Нет, всё норм.</string>
+    <string name="votingAnswer5_3">Мне всё равно.</string>
 
 
 </resources>

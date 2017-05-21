@@ -30,6 +30,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".BeforeTestActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".BeforeVotingActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".FinishActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".AfterTestActivity"

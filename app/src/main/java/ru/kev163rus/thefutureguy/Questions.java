@@ -8,7 +8,7 @@ import java.util.Random;
 public class Questions {
 
     static int indexOfQuestion, countOfQuestions;
-    static boolean itFastTest, itFullTest, itAddTest, isDebuging, isFastTestCompleted, isFullTestCompleted, isAddTestCompleted;
+    static boolean itFastTest, itFullTest, itAddTest, itVoting, isDebuging, isFastTestCompleted, isFullTestCompleted, isAddTestCompleted;
     static int arrayUserResult[];
     static int[] arrayOfNumQuestions;
 

@@ -28,6 +28,9 @@ import com.appodeal.ads.Appodeal;
 
 import ru.kev163rus.thefutureguy.R;
 
+import static ru.kev163rus.thefutureguy.R.id.textViewStartAddTest;
+import static ru.kev163rus.thefutureguy.R.id.textViewVoting;
+
 public class MenuActivity extends FragmentActivity implements View.OnClickListener {
 
     private Timer mTimer;
@@ -37,7 +40,7 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
     private Animation handFadeOutAnimation;
     private ImageView imageViewTwoHeart;
     static Intent activityQuestion, activityMenu;
-    Intent activityBeforeTest;
+    Intent activityBeforeTest, activityBeforeVoting;
     Dialog dialog;
     SoundPool mySounds;
     int musicStartID, soundClickMenuID;
@@ -71,9 +74,13 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         textViewStartFullTest.setShadowLayer(7f, 25f, 15f, ContextCompat.getColor(this, R.color.color1));
         textViewStartFullTest.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dsgoose.ttf"));
 
-        TextView textViewStartAddTest = (TextView) findViewById(R.id.textViewStartAddTest);
-        textViewStartAddTest.setShadowLayer(7f, 25f, 15f, ContextCompat.getColor(this, R.color.color1));
-        textViewStartAddTest.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dsgoose.ttf"));
+        TextView textViewStartVoting = (TextView) findViewById(R.id.textViewVoting);
+        textViewStartVoting.setShadowLayer(7f, 25f, 15f, ContextCompat.getColor(this, R.color.color1));
+        textViewStartVoting.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dsgoose.ttf"));
+
+//        TextView textViewStartAddTest = (TextView) findViewById(textViewStartAddTest);
+//        textViewStartAddTest.setShadowLayer(7f, 25f, 15f, ContextCompat.getColor(this, R.color.color1));
+//        textViewStartAddTest.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dsgoose.ttf"));
 
         TextView textViewExit = (TextView) findViewById(R.id.textViewExit);
         textViewExit.setShadowLayer(7f, 25f, 15f, ContextCompat.getColor(this, R.color.color1));
@@ -103,10 +110,11 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         activityQuestion = new Intent(this, QuestionsActivity.class);
         activityMenu = new Intent(this, MenuActivity.class);
         activityBeforeTest = new Intent(this, BeforeTestActivity.class);
+        activityBeforeVoting = new Intent(this, BeforeVotingActivity.class);
 
         textViewStartFastTest.setOnClickListener(this);
         textViewStartFullTest.setOnClickListener(this);
-        textViewStartAddTest.setOnClickListener(this);
+        textViewStartVoting.setOnClickListener(this);
         textViewExit.setOnClickListener(this);
 
         resetData();
@@ -178,6 +186,11 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
                 startActivity(activityBeforeTest);
                 finish();
                 break;
+            case R.id.textViewVoting:
+                setData("Voting");
+                startActivity(activityBeforeVoting);
+                finish();
+                break;
             case R.id.textViewStartAddTest:
                 setData("Add");
                 startActivity(activityBeforeTest);
@@ -218,6 +231,11 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
             case "Full":
                 Questions.itFullTest = true;
                 Questions.countOfQuestions = 25;
+                Questions.fillArrayOfNumQuestions(Questions.countOfQuestions);
+                break;
+            case "Voting":
+                Questions.itVoting = true;
+                Questions.countOfQuestions = 5;
                 Questions.fillArrayOfNumQuestions(Questions.countOfQuestions);
                 break;
             case "Add":

@@ -29,6 +29,8 @@ import java.util.Random;
 
 import ru.kev163rus.thefutureguy.R;
 
+import static ru.kev163rus.thefutureguy.Questions.indexOfQuestion;
+
 public class QuestionsActivity extends Activity implements View.OnClickListener {
 
     private TextView textViewQuestionCountOfQuestions, textViewQuestionFinish, textViewQuestionText, textViewQuestionAnswer1, textViewQuestionAnswer2, textViewQuestionAnswer3,
@@ -88,7 +90,7 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
         textViewQuestionBack.setOnClickListener(this);
         textViewQuestionSkip.setOnClickListener(this);
 
-        setQuestionAndAnswers(Questions.indexOfQuestion);
+        setQuestionAndAnswers(indexOfQuestion);
 
         arrayOfDialogs = new int[10];
         fillArrayOfDialogs(arrayOfDialogs);
@@ -182,19 +184,35 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
     private void setQuestionAndAnswers(int indexOfQuestion){
 
-        String textToTextView = String.valueOf(Questions.indexOfQuestion) + " " + getString(R.string.textViewQuestionCountOfQuestions) + " " + String.valueOf(Questions.countOfQuestions);
+        String textToTextView = String.valueOf(indexOfQuestion) + " " + getString(R.string.textViewQuestionCountOfQuestions) + " " + String.valueOf(Questions.countOfQuestions);
         textViewQuestionCountOfQuestions.setText(textToTextView);
         try {
-            textViewQuestionText.setText(getQuestionText(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            if (!Questions.itVoting){
+                textViewQuestionText.setText(getQuestionText(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            } else {
+                textViewQuestionText.setText(getVotingQuestionText(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            }
         } catch (Exception e) {/**/}
         try {
-            textViewQuestionAnswer1.setText(getAnswer1Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            if (!Questions.itVoting){
+                textViewQuestionAnswer1.setText(getAnswer1Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            } else {
+                textViewQuestionAnswer1.setText(getVotingAnswer1Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            }
         } catch (Exception e) {/**/}
         try {
-            textViewQuestionAnswer2.setText(getAnswer2Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            if (!Questions.itVoting){
+                textViewQuestionAnswer2.setText(getAnswer2Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            } else {
+                textViewQuestionAnswer2.setText(getVotingAnswer2Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            }
         } catch (Exception e) {/**/}
         try {
-            textViewQuestionAnswer3.setText(getAnswer3Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            if (!Questions.itVoting){
+                textViewQuestionAnswer3.setText(getAnswer3Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            } else {
+                textViewQuestionAnswer3.setText(getVotingAnswer3Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+            }
         } catch (Exception e) {/**/}
 
     }
@@ -676,18 +694,130 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
     }
 
+    private String getVotingQuestionText(int indexOfQuestion){
+
+        String result = "";
+
+        switch (indexOfQuestion) {
+            case 1:
+                result = getString(R.string.votingQuestion1);
+                break;
+            case 2:
+                result = getString(R.string.votingQuestion2);
+                break;
+            case 3:
+                result = getString(R.string.votingQuestion3);
+                break;
+            case 4:
+                result = getString(R.string.votingQuestion4);
+                break;
+            case 5:
+                result = getString(R.string.votingQuestion5);
+                break;
+            default:
+                result = "--(" + String.valueOf(indexOfQuestion) + ")--";
+                break;
+        }
+
+        return result;
+    }
+
+    private String getVotingAnswer1Text(int indexOfQuestion){
+
+        String result = "";
+
+        switch (indexOfQuestion) {
+            case 1:
+                result = getString(R.string.votingAnswer1_1);
+                break;
+            case 2:
+                result = getString(R.string.votingAnswer2_1);
+                break;
+            case 3:
+                result = getString(R.string.votingAnswer3_1);
+                break;
+            case 4:
+                result = getString(R.string.votingAnswer4_1);
+                break;
+            case 5:
+                result = getString(R.string.votingAnswer5_1);
+                break;
+            default:
+                result = "--(" + String.valueOf(indexOfQuestion) + ")--";
+                break;
+        }
+
+        return result;
+    }
+
+    private String getVotingAnswer2Text(int indexOfQuestion){
+
+        String result = "";
+
+        switch (indexOfQuestion) {
+            case 1:
+                result = getString(R.string.votingAnswer1_2);
+                break;
+            case 2:
+                result = getString(R.string.votingAnswer2_2);
+                break;
+            case 3:
+                result = getString(R.string.votingAnswer3_2);
+                break;
+            case 4:
+                result = getString(R.string.votingAnswer4_2);
+                break;
+            case 5:
+                result = getString(R.string.votingAnswer5_2);
+                break;
+            default:
+                result = "--(" + String.valueOf(indexOfQuestion) + ")--";
+                break;
+        }
+
+        return result;
+    }
+
+    private String getVotingAnswer3Text(int indexOfQuestion){
+
+        String result = "";
+
+        switch (indexOfQuestion) {
+            case 1:
+                result = getString(R.string.votingAnswer1_3);
+                break;
+            case 2:
+                result = getString(R.string.votingAnswer2_3);
+                break;
+            case 3:
+                result = getString(R.string.votingAnswer3_3);
+                break;
+            case 4:
+                result = getString(R.string.votingAnswer4_3);
+                break;
+            case 5:
+                result = getString(R.string.votingAnswer5_3);
+                break;
+            default:
+                result = "--(" + String.valueOf(indexOfQuestion) + ")--";
+                break;
+        }
+
+        return result;
+    }
+
 
     public void setNewQuestion(boolean isIncrement, int userChoise){
 
 //        if (arrayOfDialogs != null && Questions.indexOfQuestion % 4 == 0) setDialog(arrayOfDialogs[(Questions.indexOfQuestion / 4) - 1]);
 
-        Questions.setUserResult(Questions.indexOfQuestion - 1, userChoise);
+        Questions.setUserResult(indexOfQuestion - 1, userChoise);
 
-        if (isIncrement & Questions.indexOfQuestion < Questions.countOfQuestions){
-            Questions.indexOfQuestion++;
-        }else if (!isIncrement & Questions.indexOfQuestion > 1) {
-            Questions.indexOfQuestion--;
-        }else if (isIncrement & Questions.indexOfQuestion == Questions.countOfQuestions){
+        if (isIncrement & indexOfQuestion < Questions.countOfQuestions){
+            indexOfQuestion++;
+        }else if (!isIncrement & indexOfQuestion > 1) {
+            indexOfQuestion--;
+        }else if (isIncrement & indexOfQuestion == Questions.countOfQuestions){
             finishTest();
         }
 
@@ -711,7 +841,7 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                setQuestionAndAnswers(Questions.indexOfQuestion);
+                setQuestionAndAnswers(indexOfQuestion);
             }
         }, 1500);
     }
@@ -753,9 +883,12 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
     private void finishTest(){
 
         finish();
-        startActivity(new Intent(this, AfterTestActivity.class));
+        if (!Questions.itVoting){
+            startActivity(new Intent(this, AfterTestActivity.class));
+        } else {
+            startActivity(new Intent(this, AfterVotingActivity.class));
+        }
     }
-
 }
 
 

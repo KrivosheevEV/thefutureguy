@@ -49,8 +49,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="@string/butStartFullTest"
-            android:id="@+id/textViewVote"
+            android:text="@string/butStartVoting"
+            android:id="@+id/textViewVoting"
             android:layout_weight="10"
             android:textSize="30sp"
             android:textColor="@android:color/white"
