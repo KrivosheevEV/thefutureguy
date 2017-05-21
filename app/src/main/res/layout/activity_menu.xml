@@ -49,6 +49,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:text="@string/butStartFullTest"
+            android:id="@+id/textViewVote"
+            android:layout_weight="10"
+            android:textSize="30sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:text="@string/butExit"
             android:id="@+id/textViewExit"
             android:layout_weight="10"
@@ -62,7 +73,7 @@
             android:layout_height="0dp"
             android:text="@string/butStartAnotherTest"
             android:id="@+id/textViewStartAddTest"
-            android:layout_weight="10"
+            android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="30sp"
             android:textColor="@android:color/white"

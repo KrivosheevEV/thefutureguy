@@ -184,10 +184,18 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
         String textToTextView = String.valueOf(Questions.indexOfQuestion) + " " + getString(R.string.textViewQuestionCountOfQuestions) + " " + String.valueOf(Questions.countOfQuestions);
         textViewQuestionCountOfQuestions.setText(textToTextView);
-        textViewQuestionText.setText(getQuestionText(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
-        textViewQuestionAnswer1.setText(getAnswer1Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
-        textViewQuestionAnswer2.setText(getAnswer2Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
-        textViewQuestionAnswer3.setText(getAnswer3Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+        try {
+            textViewQuestionText.setText(getQuestionText(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+        } catch (Exception e) {/**/}
+        try {
+            textViewQuestionAnswer1.setText(getAnswer1Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+        } catch (Exception e) {/**/}
+        try {
+            textViewQuestionAnswer2.setText(getAnswer2Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+        } catch (Exception e) {/**/}
+        try {
+            textViewQuestionAnswer3.setText(getAnswer3Text(Questions.arrayOfNumQuestions[indexOfQuestion - 1]));
+        } catch (Exception e) {/**/}
 
     }
 
@@ -671,7 +679,7 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
     public void setNewQuestion(boolean isIncrement, int userChoise){
 
-        if (arrayOfDialogs != null && Questions.indexOfQuestion % 4 == 0) setDialog(arrayOfDialogs[(Questions.indexOfQuestion / 4) - 1]);
+//        if (arrayOfDialogs != null && Questions.indexOfQuestion % 4 == 0) setDialog(arrayOfDialogs[(Questions.indexOfQuestion / 4) - 1]);
 
         Questions.setUserResult(Questions.indexOfQuestion - 1, userChoise);
 

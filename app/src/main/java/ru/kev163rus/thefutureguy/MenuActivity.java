@@ -133,7 +133,9 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                myMusic.start();
+                try {
+                    myMusic.start();
+                } catch (Exception e) {/**/}
             }
         }, 1500);
 

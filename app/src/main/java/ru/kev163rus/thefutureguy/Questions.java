@@ -26,8 +26,12 @@ public class Questions {
 
     public static int getUserResult(){
 
+
         int sumOfQuestions = 0;
-        int arrayLength = Questions.arrayUserResult.length;
+        int arrayLength;
+        if (Questions.arrayUserResult == null) {
+            arrayLength = 1;
+        }else arrayLength = Questions.arrayUserResult.length;
         Random rnd = new Random();
 
         for (int countOfArray = 0; countOfArray < arrayLength; countOfArray++){

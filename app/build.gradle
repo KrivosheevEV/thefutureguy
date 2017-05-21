@@ -5,22 +5,25 @@ android {
         config {
             keyAlias 'kev163rus'
             storeFile file('D:/Projects/KeyStore/kev163rus.jks')
+            keyPassword 'ghjrehjh'
+            storePassword 'ghjrehjh'
         }
     }
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId 'ru.kev163rus.thefutureguy'
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 10004
-        versionName '1.0.4'
+        versionCode 10005
+        versionName '1.0.5'
         multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     productFlavors {
