@@ -1,6 +1,7 @@
 package ru.kev163rus.thefutureguy;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  * Created by Админ on 31.01.2016.
@@ -11,6 +12,8 @@ public class Questions {
     static boolean itFastTest, itFullTest, itAddTest, itVoting, isDebuging, isFastTestCompleted, isFullTestCompleted, isAddTestCompleted;
     static int arrayUserResult[];
     static int[] arrayOfNumQuestions;
+    static int[] arrayOfVotingResult = {0,0,0,0,0};
+    static String userId;
 
     public static void setUserResult(int currentQuestion, int userResult){
 
@@ -19,6 +22,9 @@ public class Questions {
         }else if (currentQuestion > indexOfQuestion){
             currentQuestion = indexOfQuestion;
         }
+
+        if (currentQuestion >= arrayUserResult.length)
+            currentQuestion = arrayUserResult.length-1;
 
         arrayUserResult[currentQuestion] = userResult;
 
@@ -74,7 +80,8 @@ public class Questions {
         for (int countOfArray = 0; countOfArray < lengthOfArray; countOfArray++) {
             arrayOfNumQuestions[countOfArray] = countOfArray + 1;
         }
-        shuffleIntArray(arrayOfNumQuestions);
+        if (!Questions.itVoting)
+            shuffleIntArray(arrayOfNumQuestions);
     }
 
     static void shuffleIntArray(int[] ar) {

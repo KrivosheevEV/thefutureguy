@@ -36,6 +36,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".AfterTestActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".AfterVotingActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".RateAppActivity"
             android:screenOrientation="portrait"/>
 

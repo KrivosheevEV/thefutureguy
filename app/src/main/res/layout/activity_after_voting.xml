@@ -18,10 +18,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="@string/textViewDialogAfterTestText"
+            android:text="@string/textViewDialogAfterVotingText"
             android:id="@+id/textViewDialogAfterVotingText"
             android:layout_weight="65"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:padding="15dp"
             android:textColor="@android:color/white" />
 
@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:text="@string/textViewDialogAfterTestYes"
+                android:text="@string/textViewDialogAfterVotingYes"
                 android:id="@+id/textViewDialogAfterVotingYes"
                 android:layout_weight="60"
                 android:layout_margin="0dp"
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:text="@string/textViewDialogAfterTestNo"
+                android:text="@string/textViewDialogAfterVotingNo"
                 android:id="@+id/textViewDialogAfterVotingNo"
                 android:layout_weight="40"
                 android:layout_margin="0dp"

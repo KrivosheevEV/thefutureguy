@@ -5,6 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.LogRecord;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,6 +15,7 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -147,6 +150,16 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
             }
         }, 1500);
 
+        AccountManager am = AccountManager.get(this); // current Context
+        Account[] accounts = am.getAccounts();
+        if (accounts.length>0){
+            for(Account account: accounts){
+                if(account.type.equalsIgnoreCase("com.google"))
+                    Questions.userId = account.name;
+            }
+        } else {
+            Questions.userId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
     }
 
     @Override
@@ -167,9 +180,11 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
 
-        mySounds.release();
-        myMusic.stop();
-        myMusic.release();
+        try {
+            mySounds.release();
+            myMusic.stop();
+            myMusic.release();
+        } catch (Exception e) {/**/}
     }
 
     @Override

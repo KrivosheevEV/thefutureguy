@@ -1,10 +1,13 @@
 package ru.kev163rus.thefutureguy;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -17,10 +20,37 @@ import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.appodeal.ads.NonSkippableVideoCallbacks;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import static android.R.attr.data;
+import static android.R.attr.track;
+import static android.text.TextUtils.concat;
+
 public class AfterVotingActivity extends Activity implements View.OnClickListener {
 
     SoundPool mySounds;
     int soundFinishID;
+
+    // JDBC variables for opening and managing connection
+    private static Connection con;
+    private static Statement stmt;
+    private static ResultSet rs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +88,25 @@ public class AfterVotingActivity extends Activity implements View.OnClickListene
 
         switch(v.getId()) {
             case R.id.textViewDialogAfterVotingYes:
+                saveResults();
+//                sendResultsToSite();
+                sendResults();
                 if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
                     Appodeal.show(AfterVotingActivity.this, Appodeal.NON_SKIPPABLE_VIDEO);
                 }else if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
                     Appodeal.show(AfterVotingActivity.this, Appodeal.INTERSTITIAL);
                 }else{
                     finish();
-                    startActivity(new Intent(AfterVotingActivity.this, FinishActivity.class));
+                    if (!Questions.itVoting){
+                        startActivity(new Intent(AfterVotingActivity.this, FinishActivity.class));
+                    } else {
+                        startActivity(new Intent(AfterVotingActivity.this, RateAppActivity.class));
+                    }
                 }
                 break;
             case R.id.textViewDialogAfterVotingNo:
                 finish();
-                startActivity(new Intent(this,  MenuActivity.class));
+                startActivity(new Intent(AfterVotingActivity.this,  MenuActivity.class));
                 break;
         }
 
@@ -105,7 +142,11 @@ public class AfterVotingActivity extends Activity implements View.OnClickListene
             public void onNonSkippableVideoClosed(boolean b) {
                 if (Questions.isDebuging) showToast("onNonSkippableClosed");
                 finish();
-                startActivity(new Intent(AfterVotingActivity.this, FinishActivity.class));
+                if (!Questions.itVoting){
+                    startActivity(new Intent(AfterVotingActivity.this, FinishActivity.class));
+                } else {
+                    startActivity(new Intent(AfterVotingActivity.this, RateAppActivity.class));
+                }
             }
 
 //            @Override
@@ -156,7 +197,11 @@ public class AfterVotingActivity extends Activity implements View.OnClickListene
             public void onInterstitialClosed() {
                 if (Questions.isDebuging) showToast("onInterstitialClosed");
                 finish();
-                startActivity(new Intent(AfterVotingActivity.this, FinishActivity.class));
+                if (!Questions.itVoting){
+                    startActivity(new Intent(AfterVotingActivity.this, FinishActivity.class));
+                } else {
+                    startActivity(new Intent(AfterVotingActivity.this, RateAppActivity.class));
+                }
             }
 
             void showToast(final String text) {
@@ -170,4 +215,86 @@ public class AfterVotingActivity extends Activity implements View.OnClickListene
         });
 
     }
+
+    public void saveResults() {
+
+        SharedPreferences mSettings;
+        String APP_PREFERENCES = "theFutureGuyVoting";
+
+        try {
+
+            String prefCounterVoting = "counterVoting";
+
+            mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = mSettings.edit();
+            int counterVoting = 0;
+            counterVoting = mSettings.getInt(prefCounterVoting, counterVoting);
+            editor.putInt(prefCounterVoting, ++counterVoting);
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_userID"), Questions.userId);
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_date"), new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date()));
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_question1"), String.valueOf(Questions.arrayOfVotingResult[0]));
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_question2"), String.valueOf(Questions.arrayOfVotingResult[1]));
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_question3"), String.valueOf(Questions.arrayOfVotingResult[2]));
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_question4"), String.valueOf(Questions.arrayOfVotingResult[3]));
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_question5"), String.valueOf(Questions.arrayOfVotingResult[4]));
+            editor.apply();
+
+        } catch (Exception e) {/**/}
+
+    }
+
+    private void sendResultsToSite() {
+
+        File file = new File("http:////parserpro.ru/tfg/resultVoting.txt");
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(file);
+            fr.write("test");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class LongOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+//                    String a="a";
+                } else {
+//                    String b="b";
+                }
+
+            } catch (Exception e) {
+//                String c="c";
+            }
+            return null;
+        }
+    }
+
+    private void sendResults(){
+
+        String url = "http://parserpro.ru/tfg/saveResult.php?"
+                .concat("userID=".concat(Questions.userId).concat("&"))
+                .concat("dateVoting=").concat(String.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))).concat("&")
+                .concat("answer1=").concat(String.valueOf(Questions.arrayOfVotingResult[0])).concat("&")
+                .concat("answer2=").concat(String.valueOf(Questions.arrayOfVotingResult[1])).concat("&")
+                .concat("answer3=").concat(String.valueOf(Questions.arrayOfVotingResult[2])).concat("&")
+                .concat("answer4=").concat(String.valueOf(Questions.arrayOfVotingResult[3])).concat("&")
+                .concat("answer5=").concat(String.valueOf(Questions.arrayOfVotingResult[4]))
+                ;
+
+        new LongOperation().execute(url);
+
+    }
+
 }

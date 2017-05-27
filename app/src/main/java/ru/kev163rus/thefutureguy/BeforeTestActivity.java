@@ -51,8 +51,8 @@ public class BeforeTestActivity extends Activity implements View.OnClickListener
                 finish();
                 break;
             case R.id.textViewDialogBeforeTestNo:
-                finish();
                 startActivity(MenuActivity.activityMenu);
+                finish();
                 break;
         }
 

@@ -156,7 +156,6 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
         }
 
         mySounds.play(soundClickItemID, 1, 1, 1, 0, 1);
-
     }
 
     private void fillArrayOfDialogs(int[] givenArray) {
@@ -811,7 +810,11 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
 //        if (arrayOfDialogs != null && Questions.indexOfQuestion % 4 == 0) setDialog(arrayOfDialogs[(Questions.indexOfQuestion / 4) - 1]);
 
-        Questions.setUserResult(indexOfQuestion - 1, userChoise);
+        if (!Questions.itVoting){
+            Questions.setUserResult(indexOfQuestion - 1, userChoise);
+        } else {
+            Questions.arrayOfVotingResult[indexOfQuestion - 1] = userChoise;
+        }
 
         if (isIncrement & indexOfQuestion < Questions.countOfQuestions){
             indexOfQuestion++;
@@ -836,7 +839,6 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
                 break;
             default: break;
         }
-
 
         new Handler().postDelayed(new Runnable() {
             @Override
