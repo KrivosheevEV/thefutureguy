@@ -15,8 +15,8 @@ android {
         applicationId 'ru.kev163rus.thefutureguy'
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 10007
-        versionName '1.0.7'
+        versionCode 10008
+        versionName '1.0.8'
         multiDexEnabled true
         signingConfig signingConfigs.config
     }

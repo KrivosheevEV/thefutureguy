@@ -273,7 +273,7 @@
     <string name="textViewDialogBeforeVotingText">Prends part à la création de la deuxième version améliorée du test! En vertu des souhaits des participantes les plus dévouées et actives nous créerons la deuxième version améliorée! Ton opinion pour nous est très importante! Deviens l\'auteur de la nouvelle application!</string>
     <string name="textViewDialogBeforeVotingYes">Je veux voter pour une nouvelle application!</string>
     <string name="textViewQuestionBack"><![CDATA[<En arrière]]></string>
-    <string name="textViewQuestionCountOfQuestions">De</string>
+    <string name="textViewQuestionCountOfQuestions">de</string>
     <string name="textViewQuestionFinish">Finir le test</string>
     <string name="textViewQuestionSkip"><![CDATA[Manquer >]]></string>
     <string name="title_activity_menu">Le nom du futur garçon</string>
@@ -297,4 +297,5 @@
     <string name="votingQuestion3">Les sons plaisent ?</string>
     <string name="votingQuestion4">Augmenter les noms des garçons ?</string>
     <string name="votingQuestion5">Améliorer l\'exactitude des tests ?</string>
+    <string name="editTextUserNameHint">Indique le nom ici</string>
 </resources>

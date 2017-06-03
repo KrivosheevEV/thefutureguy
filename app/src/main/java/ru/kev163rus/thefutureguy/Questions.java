@@ -13,21 +13,30 @@ public class Questions {
     static int arrayUserResult[];
     static int[] arrayOfNumQuestions;
     static int[] arrayOfVotingResult = {0,0,0,0,0};
-    static String userId;
+    static String userId, userName;
 
     public static void setUserResult(int currentQuestion, int userResult){
 
-        if (currentQuestion < indexOfQuestion){
+        if (arrayUserResult == null) return;
+        try {
+            if (currentQuestion > indexOfQuestion){
+                currentQuestion = indexOfQuestion;
+            }
 
-        }else if (currentQuestion > indexOfQuestion){
-            currentQuestion = indexOfQuestion;
+            if (currentQuestion >= arrayUserResult.length)
+                currentQuestion = arrayUserResult.length-1;
+            else if (currentQuestion<0)
+                currentQuestion = 0;
+
+
+        } catch (Exception e) {
+            currentQuestion = 0;
+            indexOfQuestion = 1;
+            userResult = 1;
+        } finally {
+            if (arrayUserResult.length != 0)
+                arrayUserResult[currentQuestion] = userResult;
         }
-
-        if (currentQuestion >= arrayUserResult.length)
-            currentQuestion = arrayUserResult.length-1;
-
-        arrayUserResult[currentQuestion] = userResult;
-
     }
 
     public static int getUserResult(){
@@ -84,7 +93,7 @@ public class Questions {
             shuffleIntArray(arrayOfNumQuestions);
     }
 
-    static void shuffleIntArray(int[] ar) {
+    private static void shuffleIntArray(int[] ar) {
         Random rnd = new Random();
         for (int i = ar.length - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);

@@ -296,6 +296,7 @@
     <string name="textViewDialogAfterVotingText">Every time by watching ads, you help us make this app better. Vote more often and then your name will be on the list of the most active helpers!</string>
     <string name="textViewDialogAfterVotingYes">To send the results</string>
     <string name="textViewDialogAfterVotingNo">Don\'t want to vote</string>
+    <string name="editTextUserNameHint">Enter the name here</string>
 
 
 </resources>

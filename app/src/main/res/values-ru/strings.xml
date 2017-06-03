@@ -297,6 +297,7 @@
     <string name="textViewDialogAfterVotingText">Каждый раз, просматривая рекламу, ты помогаешь нам делать это приложение лучше. Голосуй чаще и тогда твоё имя будет в списке самых активных помощниц!</string>
     <string name="textViewDialogAfterVotingYes">Отправить результаты</string>
     <string name="textViewDialogAfterVotingNo">Не хочу голосовать</string>
+    <string name="editTextUserNameHint">Укажи своё имя здесь</string>
 
 
 </resources>

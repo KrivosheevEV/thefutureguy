@@ -1,5 +1,6 @@
 package ru.kev163rus.thefutureguy;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -90,7 +92,11 @@ public class AfterVotingActivity extends Activity implements View.OnClickListene
             case R.id.textViewDialogAfterVotingYes:
                 saveResults();
 //                sendResultsToSite();
-                sendResults();
+                try {
+                    sendResults();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
                     Appodeal.show(AfterVotingActivity.this, Appodeal.NON_SKIPPABLE_VIDEO);
                 }else if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
@@ -231,6 +237,7 @@ public class AfterVotingActivity extends Activity implements View.OnClickListene
             counterVoting = mSettings.getInt(prefCounterVoting, counterVoting);
             editor.putInt(prefCounterVoting, ++counterVoting);
             editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_userID"), Questions.userId);
+            editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_userName"), Questions.userName);
             editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_date"), new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date()));
             editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_question1"), String.valueOf(Questions.arrayOfVotingResult[0]));
             editor.putString("voiting".concat(String.valueOf(counterVoting)).concat("_question2"), String.valueOf(Questions.arrayOfVotingResult[1]));
@@ -281,11 +288,12 @@ public class AfterVotingActivity extends Activity implements View.OnClickListene
         }
     }
 
-    private void sendResults(){
+    private void sendResults() throws UnsupportedEncodingException {
 
-        String url = "http://parserpro.ru/tfg/saveResult.php?"
+        @SuppressLint("SimpleDateFormat") String url = "http://parserpro.ru/tfg/saveResult.php?"
                 .concat("userID=".concat(Questions.userId).concat("&"))
-                .concat("dateVoting=").concat(String.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))).concat("&")
+                .concat("userName=".concat(URLEncoder.encode(Questions.userName, "UTF-8")).concat("&"))
+                .concat("dateVoting=").concat(URLEncoder.encode(String.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())), "UTF-8")).concat("&")
                 .concat("answer1=").concat(String.valueOf(Questions.arrayOfVotingResult[0])).concat("&")
                 .concat("answer2=").concat(String.valueOf(Questions.arrayOfVotingResult[1])).concat("&")
                 .concat("answer3=").concat(String.valueOf(Questions.arrayOfVotingResult[2])).concat("&")

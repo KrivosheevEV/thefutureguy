@@ -1,6 +1,7 @@
 package ru.kev163rus.thefutureguy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
@@ -47,11 +48,11 @@ public class BeforeTestActivity extends Activity implements View.OnClickListener
 
         switch(v.getId()) {
             case R.id.textViewDialogBeforeTestYes:
-                startActivity(MenuActivity.activityQuestion);
+                startActivity(new Intent(this, QuestionsActivity.class));
                 finish();
                 break;
             case R.id.textViewDialogBeforeTestNo:
-                startActivity(MenuActivity.activityMenu);
+                startActivity(new Intent(this, MenuActivity.class));
                 finish();
                 break;
         }

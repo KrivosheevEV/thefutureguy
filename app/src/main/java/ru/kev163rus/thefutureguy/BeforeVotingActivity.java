@@ -1,17 +1,20 @@
 package ru.kev163rus.thefutureguy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class BeforeVotingActivity extends Activity implements View.OnClickListener {
 
     private TextView textViewDialogBeforeVotingText, textViewDialogBeforeVotingYes, textViewDialogBeforeVotingNo;
+    private EditText editTextUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,10 @@ public class BeforeVotingActivity extends Activity implements View.OnClickListen
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_before_voting);
+
+        editTextUserName = (EditText) findViewById(R.id.editTextUserName);
+        editTextUserName.setShadowLayer(7f, 25f, 15f, ContextCompat.getColor(this, R.color.color1));
+        editTextUserName.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dsgoose.ttf"));
 
         textViewDialogBeforeVotingText = (TextView) findViewById(R.id.textViewDialogBeforeVotingText);
         textViewDialogBeforeVotingText.setShadowLayer(7f, 25f, 15f, ContextCompat.getColor(this, R.color.color1));
@@ -45,12 +52,13 @@ public class BeforeVotingActivity extends Activity implements View.OnClickListen
 
         switch(v.getId()) {
             case R.id.textViewDialogBeforeVotingYes:
-                startActivity(MenuActivity.activityQuestion);
+                Questions.userName = editTextUserName.getText().toString();
+                startActivity(new Intent(this, QuestionsActivity.class));
                 finish();
                 break;
             case R.id.textViewDialogBeforeVotingNo:
                 finish();
-                startActivity(MenuActivity.activityMenu);
+                startActivity(new Intent(this, MenuActivity.class));
                 break;
         }
 

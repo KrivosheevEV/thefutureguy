@@ -812,7 +812,7 @@ public class QuestionsActivity extends Activity implements View.OnClickListener 
 
         if (!Questions.itVoting){
             Questions.setUserResult(indexOfQuestion - 1, userChoise);
-        } else {
+        } else if (Questions.arrayOfVotingResult.length != 0 && indexOfQuestion > 0 & indexOfQuestion <= Questions.arrayOfVotingResult.length){
             Questions.arrayOfVotingResult[indexOfQuestion - 1] = userChoise;
         }
 
