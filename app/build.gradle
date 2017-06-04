@@ -4,7 +4,7 @@ android {
     signingConfigs {
         config {
             keyAlias 'kev163rus'
-            storeFile file('D:/Projects/KeyStore/kev163rus.jks')
+            storeFile file('D:/Projects/KeyStore/upload.jks')
             keyPassword 'ghjrehjh'
             storePassword 'ghjrehjh'
         }
@@ -15,8 +15,8 @@ android {
         applicationId 'ru.kev163rus.thefutureguy'
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 10008
-        versionName '1.0.8'
+        versionCode 10009
+        versionName '1.0.9'
         multiDexEnabled true
         signingConfig signingConfigs.config
     }
